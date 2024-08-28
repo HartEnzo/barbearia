@@ -1,10 +1,21 @@
 const express = require("express")
 const servico_controller = require("./controllers/servico.js")
+const cep_endereco = require("./middlewares/cep_endereco.js")
 const app = express()
 const port = 3000;
 
 app.use(express.json());
+// app.use(cep_endereco) // midleware de uso global
 
+//Barbearia
+app.post("/barbearia", cep_endereco, (req, res) => {
+    console.log(req.body)
+    res.json();
+});
+
+
+
+//servico
 app.post("/servico", (req, res) => {
     const servico = req.body;
     const code = servico_controller.store(servico);
