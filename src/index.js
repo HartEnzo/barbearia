@@ -13,6 +13,34 @@ app.post("/barbearia", cep_endereco, (req, res) => {
     res.json();
 });
 
+//CLIENTE:
+app.post("/cliente", (req, res) => {
+    const cliente = req.body;
+    const code = cliente_controller.store(cliente);
+    res.status(code).json();
+    
+});
+
+app.get("/cliente", (req, res) => {
+    res.json(cliente_controller.index());
+});
+
+app.get("/cliente/:id", (req, res) => {
+    const cliente = cliente_controller.show(req.params.id);
+    res.json(cliente);
+});
+
+app.put("/cliente/:id", (req,res) => {
+    const cliente = req.body 
+    const code = cliente_controller.update(req.body, req.params.id)
+    res.status(code).json()
+});
+
+app.delete("/cliente/:id", (req, res) => {
+    cliente_controller.destroy(req.params.id)
+    res.json()
+});
+
 
 
 //servico
