@@ -1,5 +1,6 @@
 const express = require("express")
 const cep_endereco = require("./middlewares/cep_endereco.js")
+const servico_controller = require("./controllers/servico.js")
 const cliente_controller = require("./controllers/cliente.js")
 const barbeiro_controller = require("./controllers/barbeiro.js")
 const app = express()
@@ -62,10 +63,7 @@ app.delete("/barbeiro/:id", (req, res) => {
     res.json()
 })
 
-
-
-
-
+//SERVICO
 
 
 
