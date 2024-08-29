@@ -1,78 +1,77 @@
 const express = require("express")
-const servico_controller = require("./controllers/servico.js")
 const cep_endereco = require("./middlewares/cep_endereco.js")
+const cliente_controller = require("./controllers/cliente.js")
+const barbeiro_controller = require("./controllers/barbeiro.js")
 const app = express()
-const port = 3000;
+const port = 3000
 
-app.use(express.json());
-// app.use(cep_endereco) // midleware de uso global
+app.use(express.json())
+// app.use(cep_endereco) // Midleware de uso global
 
-//Barbearia
+//barbearia
 app.post("/barbearia", cep_endereco, (req, res) => {
-    console.log(req.body)
-    res.json();
-});
+    res.json(req.body)
+})
 
-//CLIENTE:
-app.post("/cliente", (req, res) => {
-    const cliente = req.body;
-    const code = cliente_controller.store(cliente);
-    res.status(code).json();
-    
-});
-
+//cliente
 app.get("/cliente", (req, res) => {
-    res.json(cliente_controller.index());
-});
+    res.json(cliente_controller.index())
+})
 
 app.get("/cliente/:id", (req, res) => {
-    const cliente = cliente_controller.show(req.params.id);
-    res.json(cliente);
-});
+    res.json(cliente_controller.show(req.params.id))
+})
 
-app.put("/cliente/:id", (req,res) => {
-    const cliente = req.body 
+app.post("/cliente", (req, res) => {
+    const code = cliente_controller.store(req.body)
+    res.status(code).json()
+})
+
+app.put("/cliente/:id", (req, res) => {
     const code = cliente_controller.update(req.body, req.params.id)
     res.status(code).json()
-});
+})
 
 app.delete("/cliente/:id", (req, res) => {
     cliente_controller.destroy(req.params.id)
     res.json()
-});
+})
 
+// barbeiro
 
+app.get("/barbeiro", (req, res) => {
+    res.json(barbeiro_controller.index())
+})
 
-//servico
-app.post("/servico", (req, res) => {
-    const servico = req.body;
-    const code = servico_controller.store(servico);
-    res.status(code).json();
-    
-});
+app.get("/barbeiro/:id", (req, res) => {
+    res.json(barbeiro_controller.show(req.params.id))
+})
 
-app.get("/servico", (req, res) => {
-    res.json(servico_controller.index());
-});
-
-app.get("/servico/:id", (req, res) => {
-    const servico = servico_controller.show(req.params.id);
-    res.json(servico);
-});
-
-app.put("/servico/:id", (req,res) => {
-    const servico = req.body 
-    const code = servico_controller.update(req.params.id, servico)
+app.post("/barbeiro", (req, res) => {
+    const code = barbeiro_controller.store(req.body)
     res.status(code).json()
-});
+})
 
-app.delete("/servico/:id", (req, res) => {
-    servico_controller.destroy(req.params.id)
+app.put("/barbeiro/:id", (req, res) => {
+    const code = barbeiro_controller.update(req.body, req.params.id)
+    res.status(code).json()
+})
+
+app.delete("/barbeiro/:id", (req, res) => {
+    barbeiro_controller.destroy(req.params.id)
     res.json()
-});
-
-app.listen(port, () => {
-    console.log(`servidor rodando na porta ${port}`)
 })
 
 
+
+
+
+
+
+
+
+
+
+app.listen(port, () => {
+    console.log(`Server running in ${port} port`)
+})
