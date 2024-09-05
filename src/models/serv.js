@@ -23,8 +23,6 @@ const model = (body, id = nextId++) => {
       
     };
   }
-
-  return null; 
 }
 
 module.exports = model
